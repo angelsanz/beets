@@ -28,9 +28,6 @@ __version__ = '0.10'
 
 
 class ZeroPlugin(BeetsPlugin):
-
-    _instance = None
-
     def __init__(self):
         super(ZeroPlugin, self).__init__()
 
