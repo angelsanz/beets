@@ -37,8 +37,7 @@ class ZeroPlugin(BeetsPlugin):
         self.patterns = {}
         self.warned = False
 
-        # We'll only handle `fields` or `keep_fields`, but not both.
-        if self.config['fields'] and self.config['keep_fields']:
+        if self._has_contradictory_configuration():
             self._log.warn(u'cannot blacklist and whitelist at the same time')
 
         # Blacklist mode.
@@ -72,6 +71,9 @@ class ZeroPlugin(BeetsPlugin):
             'keep_fields': [],
             'update_database': False,
         })
+
+    def _has_contradictory_configuration(self):
+        return self.config['fields'] and self.config['keep_fields']
 
     def validate_config(self, mode):
         """Check whether fields in the configuration are valid.
