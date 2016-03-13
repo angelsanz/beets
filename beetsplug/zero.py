@@ -32,12 +32,7 @@ class ZeroPlugin(BeetsPlugin):
         super(ZeroPlugin, self).__init__()
 
         self._register_listeners()
-
-        self.config.add({
-            'fields': [],
-            'keep_fields': [],
-            'update_database': False,
-        })
+        self._set_default_configuration()
 
         self.patterns = {}
         self.warned = False
@@ -70,6 +65,13 @@ class ZeroPlugin(BeetsPlugin):
         self.register_listener('write', self.write_event)
         self.register_listener('import_task_choice',
                                self.import_task_choice_event)
+
+    def _set_default_configuration(self):
+        self.config.add({
+            'fields': [],
+            'keep_fields': [],
+            'update_database': False,
+        })
 
     def validate_config(self, mode):
         """Check whether fields in the configuration are valid.
