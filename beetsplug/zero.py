@@ -31,10 +31,7 @@ class ZeroPlugin(BeetsPlugin):
     def __init__(self):
         super(ZeroPlugin, self).__init__()
 
-        # Listeners.
-        self.register_listener('write', self.write_event)
-        self.register_listener('import_task_choice',
-                               self.import_task_choice_event)
+        self._register_listeners()
 
         self.config.add({
             'fields': [],
@@ -68,6 +65,11 @@ class ZeroPlugin(BeetsPlugin):
             for key in ('id', 'path', 'album_id'):
                 if key in self.patterns:
                     del self.patterns[key]
+
+    def _register_listeners(self):
+        self.register_listener('write', self.write_event)
+        self.register_listener('import_task_choice',
+                               self.import_task_choice_event)
 
     def validate_config(self, mode):
         """Check whether fields in the configuration are valid.
